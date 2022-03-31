@@ -19,6 +19,12 @@
             <artifactId>JDA</artifactId>
             <version>5.0.0-alpha.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.1</version>
+        </dependency>
 
 
     </dependencies>

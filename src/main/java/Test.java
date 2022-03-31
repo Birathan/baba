@@ -5,13 +5,13 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
+import io.github.cdimascio.dotenv.Dotenv;
 import javax.security.auth.login.LoginException;
 
-public class Test  extends ListenerAdapter {
+public class Test extends ListenerAdapter {
    public static void main(String[] args) throws LoginException {
-      String token = "OTU4OTE4NTA0NTA4MTc0NDI2.YkUUcw.HdbjXnM7yvGO_qS12prU1Q5LHWA";
-
+      Dotenv dotenv = Dotenv.load();
+      String token = dotenv.get("DISCORD_BOT_TOKEN");
       JDA jda = JDABuilder.createDefault(token).build();
       jda.addEventListener(new Test());
    }
