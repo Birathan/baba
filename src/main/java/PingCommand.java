@@ -1,12 +1,14 @@
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PingCommand extends Command {
-   public PingCommand(String name) {
-      super(name);
+
+   public PingCommand() {
+      super("Check if the bot is up and running");
    }
 
    @Override
-   public String execute(MessageReceivedEvent event) {
-      return null;
+   public void execute(MessageChannel channel, String[] args) {
+      channel.sendMessage("Pong!").queue();
    }
 }
