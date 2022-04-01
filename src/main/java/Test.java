@@ -19,6 +19,8 @@ public class Test extends ListenerAdapter {
       JDA jda = JDABuilder.createDefault(token).build();
       jda.addEventListener(new Test());
       commandMapping.put("!ping", new PingCommand());
+      commandMapping.put("!chance", new ChanceCommand());
+      commandMapping.put("!quote", new QuoteCommand());
    }
 
    @Override
