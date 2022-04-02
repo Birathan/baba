@@ -1,2 +1,1 @@
-# baba
-![Alt Text](https://tenor.com/bKQSx.gif)
+# baba ![hi](https://user-images.githubusercontent.com/34045539/161357485-cdb201e1-6d85-4b69-8700-33189a1ccea0.gif)
