@@ -5,14 +5,15 @@ import java.sql.*;
 import java.util.Arrays;
 
 public class TodoCommand extends Command{
+
    public TodoCommand(){
       super("Help maintain a daily todo list");
    }
 
-   public int getNextId(Statement st){
+   public int getNextId(Statement st, String table){
       int id = 0;
       try {
-         ResultSet rs = st.executeQuery("select * from todo_list");
+         ResultSet rs = st.executeQuery("select * from "+table);
          while(rs.next()){
             id += 1;
          }
@@ -29,6 +30,7 @@ public class TodoCommand extends Command{
       String connection_url = dotenv.get("PG_CONNECTION_URL");
       String user = dotenv.get("PG_USERNAME");
       String pass = dotenv.get("PG_PASSWORD");
+      String todoTable = dotenv.get("TODO_TABLE");
       String commandType = args[0];
       try {
 //         Class.forName("com.mysql.jdbc.Driver");
@@ -41,7 +43,7 @@ public class TodoCommand extends Command{
          ResultSet rs;
          switch(commandType){
             case "list":
-               rs = stmt.executeQuery("SELECT * FROM todo_list ORDER BY id");
+               rs = stmt.executeQuery("SELECT * FROM "+todoTable+" ORDER BY id");
                //
                // System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
 
@@ -56,15 +58,15 @@ public class TodoCommand extends Command{
                output ="Task List: `["+task_num+"/" +finished+ "] Completed ` \n" + output;
                break;
             case "add":
-               int id = getNextId(stmt);
-               st = conn.prepareStatement("INSERT INTO TODO_LIST VALUES (?,?, FALSE)");
+               int id = getNextId(stmt, todoTable);
+               st = conn.prepareStatement("INSERT INTO "+todoTable+" VALUES (?,?, FALSE)");
                st.setInt(1,id);
                st.setString(2, String.join(" ", Arrays.copyOfRange(args,1,args.length)));
                st.executeUpdate();
                output += "Task added successfully";
                break;
             case "complete":
-               st = conn.prepareStatement("UPDATE TODO_LIST SET completed=TRUE WHERE id=?");
+               st = conn.prepareStatement("UPDATE "+todoTable+" SET completed=TRUE WHERE id=?");
                st.setInt(1,Integer.parseInt(args[1]));
                st.executeUpdate();
                output += "Task "+args[1]+" successfully marked as complete";
@@ -80,17 +82,7 @@ public class TodoCommand extends Command{
       } catch (Exception e) {
          e.printStackTrace();
       }
-//      try{
-//         Class.forName("com.mysql.jdbc.Driver");
-//         Connection con= DriverManager.getConnection(
-//                 "jdbc:mysql://localhost:3306/sonoo","root","root");
-////here sonoo is database name, root is username and password
-//         Statement stmt=con.createStatement();
-//         ResultSet rs=stmt.executeQuery("select * from emp");
-//         while(rs.next())
-//            System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-//         con.close();
-//      }catch(Exception e){ System.out.println(e);}
+
    }
 }
 

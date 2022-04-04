@@ -1,4 +1,3 @@
-import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -21,6 +20,8 @@ public class Test extends ListenerAdapter {
       commandMapping.put("!ping", new PingCommand());
       commandMapping.put("!chance", new ChanceCommand());
       commandMapping.put("!quote", new QuoteCommand());
+      commandMapping.put("!todo", new TodoCommand());
+      commandMapping.put("!reminder", new ReminderCommand());
    }
 
    @Override
