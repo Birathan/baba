@@ -36,11 +36,13 @@
             <version>20180130</version>
         </dependency>
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/net.dean.jraw/JRAW &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>net.dean.jraw</groupId>-->
-<!--            <artifactId>JRAW</artifactId>-->
-<!--            <version>1.1.0</version>-->
-<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.faendir.jraw/JRAW -->
+        <dependency>
+            <groupId>com.faendir.jraw</groupId>
+            <artifactId>JRAW</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>mysql</groupId>-->
 <!--            <artifactId>mysql-connector-java</artifactId>-->

@@ -22,6 +22,7 @@ public class Test extends ListenerAdapter {
       commandMapping.put("!quote", new QuoteCommand());
       commandMapping.put("!todo", new TodoCommand());
       commandMapping.put("!reminder", new ReminderCommand());
+      commandMapping.put("!reddit", new RedditSearchCommand());
    }
 
    @Override
@@ -39,7 +40,7 @@ public class Test extends ListenerAdapter {
             for (Map.Entry<String, Command> entry: commandMapping.entrySet()){
                String name = entry.getKey();
                Command c = entry.getValue();
-               doc = doc+ "`"+name+"` - "+c.getDocumentation() + "\n";
+               doc = doc+ "**"+c.getCommandName()+"**\n"+c.getDocumentation() + "\n\n";
             }
             channel.sendMessage(doc).queue();
          } else{
@@ -49,7 +50,7 @@ public class Test extends ListenerAdapter {
             if (cmd != null){
                cmd.execute(channel, args);
             } else {
-               channel.sendMessage("Command `"+commandName+"` not found, type `!help` to get a list of available commands").queue();
+               channel.sendMessage("Command **"+commandName+"** not found, type **!help** to get a list of available commands").queue();
             }
          }
 

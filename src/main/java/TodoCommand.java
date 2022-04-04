@@ -7,7 +7,10 @@ import java.util.Arrays;
 public class TodoCommand extends Command{
 
    public TodoCommand(){
-      super("Help maintain a daily todo list");
+      super("TODO COMMAND",
+              "> **!todo list ** - view all tasks\n" +
+                      "> **!todo add [string] ** - add task\n" +
+                      "> **!todo complete [integer] ** - mark task as complete\n");
    }
 
    public int getNextId(Statement st, String table){

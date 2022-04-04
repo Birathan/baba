@@ -17,7 +17,7 @@ import static java.time.temporal.ChronoUnit.*;
 
 public class ReminderCommand extends Command{
    public ReminderCommand(){
-      super("set a timed reminder");
+      super("REMINDER COMMAND","> **!reminder** - set a timed reminder");
    }
 
    @Override

@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class QuoteCommand extends Command{
 
    public QuoteCommand(){
-      super("This will generate a random quote");
+      super("QUOTE COMMAND","> **!quote** - this will generate a random quote");
    }
    @Override
    public void execute(MessageChannel channel, String[] args) {

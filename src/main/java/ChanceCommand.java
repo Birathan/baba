@@ -8,7 +8,11 @@ import java.util.Random;
 public class ChanceCommand extends Command {
 
    public ChanceCommand(){
-      super("chance roll for coin toss , dice roll and choice of a list of options");
+      super("CHANCE COMMAND",
+              "> **!chance coin**  - simulate coin toss\n" +
+              "> **!chance dice**  - simulate dice roll\n" +
+             "> **!chance 8ball [string]** - simulate magic 8ball\n" +
+              "> **!chance choose [choice1, choice2, etc...]** - choose randomly between list of choices");
    }
 
    @Override
