@@ -1,6 +1,6 @@
-CREATE TABLE todo_list(
+CREATE TABLE todo_list_test(
     id SERIAL PRIMARY KEY,
-    task VARCHAR(45) NOT NULL
+    task VARCHAR(45) NOT NULL,
     completed BOOLEAN NOT NULL
 );
 

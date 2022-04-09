@@ -42,7 +42,7 @@ public class RedditSearchCommand extends Command {
                  .sorting(SubredditSort.TOP) // top posts
                  .build();
          Listing<Submission> submissions = paginator.next();
-         for (Submission s: submissions){
+         for (Submission s: submissions.getChildren()){
             channel.sendMessage("https://www.reddit.com"+s.getPermalink()).queue();
          }
       } else {
