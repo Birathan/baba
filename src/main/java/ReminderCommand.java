@@ -2,11 +2,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
@@ -35,15 +31,15 @@ public class ReminderCommand extends Command{
 
          Statement stmt = conn.createStatement();
          PreparedStatement st;
-         String output = "";
+         StringBuilder output = new StringBuilder();
          ResultSet rs;
          switch(commandType){
             case "list":
-               output += "All Reminders: \n";
+               output.append("All Reminders: \n");
                rs = stmt.executeQuery("SELECT * FROM " + reminderTable + " ORDER BY reminder_time");
 
                while(rs.next()){
-                  output += rs.getTime(2) + " " + rs.getString(1) + "\n";
+                  output.append(rs.getTime(2)).append(" ").append(rs.getString(1)).append("\n");
                }
                break;
             case "add":
@@ -56,21 +52,20 @@ public class ReminderCommand extends Command{
                st.setString(1, reminderMsg);
                st.setTime(2, Time.valueOf(reminderTime));
                st.executeUpdate();
-               output += "Set reminder successfully.";
+               output.append("Set reminder successfully.");
                channel.sendMessage("Reminder : " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
                break;
 
             default:
-               output = getDocumentation();
+               output = new StringBuilder(getDocumentation());
          }
          DBUtil.closeConnection(conn);
-         channel.sendMessage(output).queue();
+         channel.sendMessage(output.toString()).queue();
 
       } catch (SQLException e) {
          System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
       } catch (Exception e) {
          e.printStackTrace();
       }
-      return;
    }
 }

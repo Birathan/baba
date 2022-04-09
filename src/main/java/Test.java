@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Test extends ListenerAdapter {
-   public static Map<String, Command> commandMapping = new HashMap<String, Command>();
+   public static Map<String, Command> commandMapping = new HashMap<>();
    public static void main(String[] args) throws LoginException {
       Dotenv dotenv = Dotenv.load();
       String token = dotenv.get("DISCORD_BOT_TOKEN");
@@ -36,13 +36,12 @@ public class Test extends ListenerAdapter {
          String[] args = query.split("\\s+");
          String commandName = args[0];
          if (commandName.equals("!help")){
-            String doc = "";
+            StringBuilder doc = new StringBuilder();
             for (Map.Entry<String, Command> entry: commandMapping.entrySet()){
-               String name = entry.getKey();
                Command c = entry.getValue();
-               doc = doc+ "**"+c.getCommandName()+"**\n"+c.getDocumentation() + "\n\n";
+               doc.append("**").append(c.getCommandName()).append("**\n").append(c.getDocumentation()).append("\n\n");
             }
-            channel.sendMessage(doc).queue();
+            channel.sendMessage(doc.toString()).queue();
          } else{
             args = Arrays.copyOfRange(args,1,args.length);
             Command cmd = commandMapping.get(commandName);
@@ -56,15 +55,6 @@ public class Test extends ListenerAdapter {
 
       }
 
-//      if (msg.getContentRaw().equals("!ping"))
-//      {
-//         MessageChannel channel = event.getChannel();
-//         long time = System.currentTimeMillis();
-//         channel.sendMessage("Pong!") /* => RestAction<Message> */
-//                 .queue(response /* => Message */ -> {
-//                    response.editMessageFormat("Pong: %d ms", System.currentTimeMillis() - time).queue();
-//                 });
-//      }
    }
 
 }

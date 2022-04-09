@@ -1,5 +1,4 @@
 import io.github.cdimascio.dotenv.Dotenv;
-import net.dean.jraw.models.LiveUpdate;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import okhttp3.OkHttpClient;
@@ -9,7 +8,6 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class QuoteCommand extends Command{
 

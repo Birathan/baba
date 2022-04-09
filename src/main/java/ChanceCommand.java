@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Random;
 
 public class ChanceCommand extends Command {
-
+   private final List<String> eightball_responses = Arrays.asList("It is certain", "Without a doubt", "You may rely on it", "Yes definitely",
+           "It is decidedly so", "As I see it, yes", "Most likely", "Yes", "Outlook good", "Signs point to yes",
+           "Reply hazy try again", "Better not tell you now", "Ask again later", "Cannot predict now",
+           "Concentrate and ask again", "Don’t count on it", "Outlook not so good", "My sources say no",
+           "Very doubtful", "My reply is no");
    public ChanceCommand(){
       super("CHANCE COMMAND",
               "> **!chance coin**  - simulate coin toss\n" +
@@ -17,11 +21,6 @@ public class ChanceCommand extends Command {
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
-      List<String> eightball_responses = Arrays.asList("It is certain", "Without a doubt", "You may rely on it", "Yes definitely",
-              "It is decidedly so", "As I see it, yes", "Most likely", "Yes", "Outlook good", "Signs point to yes",
-              "Reply hazy try again", "Better not tell you now", "Ask again later", "Cannot predict now",
-              "Concentrate and ask again", "Don’t count on it", "Outlook not so good", "My sources say no",
-              "Very doubtful", "My reply is no");
       if (args.length == 0){
          channel.sendMessage(this.getDocumentation()).queue();
          return;
@@ -44,8 +43,8 @@ public class ChanceCommand extends Command {
             channel.sendMessage(response + choices[rand.nextInt(choices.length)]).queue();
             break;
          case "8ball":
-            Collections.shuffle(eightball_responses);
-            channel.sendMessage(eightball_responses.get(rand.nextInt(eightball_responses.size()))).queue();
+            Collections.shuffle(this.eightball_responses);
+            channel.sendMessage(this.eightball_responses.get(rand.nextInt(this.eightball_responses.size()))).queue();
             break;
          default:
             channel.sendMessage(this.getDocumentation()).queue();

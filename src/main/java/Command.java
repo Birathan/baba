@@ -1,9 +1,8 @@
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public abstract class Command {
-   private String commandName;
-   private String documentation;
+   private final String commandName;
+   private final String documentation;
 
    public Command(String commandName,String documentation){
       this.documentation = documentation;

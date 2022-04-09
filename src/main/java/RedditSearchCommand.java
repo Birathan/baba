@@ -9,8 +9,6 @@ import net.dean.jraw.oauth.OAuthHelper;
 import net.dean.jraw.pagination.DefaultPaginator;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
-//import static sun.net.www.protocol.http.HttpURLConnection.userAgent;
-//import org.apache.http.impl.client.HttpClientBuilder;
 
 public class RedditSearchCommand extends Command {
    public RedditSearchCommand(){
