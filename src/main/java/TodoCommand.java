@@ -4,12 +4,11 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.awt.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class TodoCommand extends Command{
-   HashMap<Integer,Integer> idMapping = new HashMap<Integer,Integer>();
+   HashMap<Integer,Integer> idMapping = new HashMap<>();
    final String todoTable;
    public TodoCommand(){
       super("TODO COMMAND",
@@ -24,7 +23,6 @@ public class TodoCommand extends Command{
 
    public void updateMapping(){
       int id = 1;
-      PreparedStatement st;
       Connection conn = DBUtil.getConnection();
       try {
          Statement stmt = conn.createStatement();
@@ -62,8 +60,6 @@ public class TodoCommand extends Command{
 
                int task_num = 0;
                int finished = 0;
-               ArrayList<String> col1 = new ArrayList<String>();
-               ArrayList<String> col2 = new ArrayList<String>();
                String[] tasks = new String[idMapping.size()];
                int id = 1;
                while(rs.next()){
@@ -79,7 +75,6 @@ public class TodoCommand extends Command{
                eb.setColor(new Color(0x10B981));
                eb.setDescription(String.join("\n", tasks));
                eb.addField("Completed","["+task_num+"/" +finished+"]", true);
-               output = "";
                channel.sendMessageEmbeds(eb.build()).queue();
 
                break;
@@ -87,7 +82,6 @@ public class TodoCommand extends Command{
                String task = String.join(" ", Arrays.copyOfRange(args,1,args.length));
                st = conn.prepareStatement("INSERT INTO "+this.todoTable +"(task, completed) VALUES(?, FALSE)");
                st.setString(1, task);
-               System.out.println(st.toString());
                st.executeUpdate();
                eb = new EmbedBuilder();
                eb.setTitle("Task");
@@ -96,8 +90,6 @@ public class TodoCommand extends Command{
                eb.addField("Task",task, true);
                eb.addField("Completed","False", true);
                eb.addBlankField(false);
-
-               output = "";
                channel.sendMessageEmbeds(eb.build()).queue();
                break;
             case "complete":
