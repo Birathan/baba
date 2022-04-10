@@ -68,8 +68,6 @@ public class TodoCommand extends Command{
                int id = 1;
                while(rs.next()){
                   boolean isComplete = rs.getBoolean(3);
-//                  col1.add(rs.getString(2));
-//                  col2.add(isComplete ? "True":"False");
                   tasks[id-1] ="  "+(isComplete? ":white_check_mark:":":x:") +"   - " +id +" "+ rs.getString(2);
                   finished += 1;
                   task_num += isComplete ? 1: 0;
@@ -80,27 +78,9 @@ public class TodoCommand extends Command{
                eb.setTitle("Task List :ledger: :");
                eb.setColor(new Color(0x10B981));
                eb.setDescription(String.join("\n", tasks));
-//               eb.setThumbnail(":ledger:");
-//               eb.setImage("https://i.imgur.com/AfFp7pu.png");
-//               eb.setAuthor("author","https://i.imgur.com/AfFp7pu.png", "https://i.imgur.com/AfFp7pu.png");
-
                eb.addField("Completed","["+task_num+"/" +finished+"]", true);
-
-//               eb.addField("Completed",String.join("\n",col2), true);
-//               eb.addBlankField(true);
-//               eb.addField("","under", true);
-//               eb.add
-//               eb.addField("","under", true);
-//               eb.addBlankField(true);
-
-//               eb.addField("under",task_num+"/" +finished, true);
-
-//               eb.addBlankField(false);
-//               eb.setAuthor("baba");
-//               eb.setFooter("footer");
                output = "";
                channel.sendMessageEmbeds(eb.build()).queue();
-//               channel.sendMessage(output).queue();
 
                break;
             case "add":
@@ -116,8 +96,7 @@ public class TodoCommand extends Command{
                eb.addField("Task",task, true);
                eb.addField("Completed","False", true);
                eb.addBlankField(false);
-//               eb.setAuthor("baba");
-//               eb.setFooter("footer");
+
                output = "";
                channel.sendMessageEmbeds(eb.build()).queue();
                break;
