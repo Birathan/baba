@@ -12,23 +12,23 @@ import java.util.concurrent.TimeUnit;
 import static java.time.temporal.ChronoUnit.*;
 
 public class ReminderCommand extends Command{
+   final String reminderTable;
    public ReminderCommand(){
       super("REMINDER COMMAND",
               "> **!reminder add [string]** - set a timed reminder\n" +
                       "> **!reminder list** - view all reminders");
+      Dotenv dotenv = Dotenv.load();
+      this.reminderTable = dotenv.get("REMINDER_TABLE");
    }
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
-      Dotenv dotenv = Dotenv.load();
-      String reminderTable = dotenv.get("REMINDER_TABLE");
+
       String commandType = args[0];
 //      System.out.format("connection url %s ,username %s, pass %s", connection_url, user, pass);
       Connection conn = DBUtil.getConnection();
 
       try {
-//         Class.forName("com.mysql.jdbc.Driver");
-
          Statement stmt = conn.createStatement();
          PreparedStatement st;
          StringBuilder output = new StringBuilder();
@@ -36,7 +36,7 @@ public class ReminderCommand extends Command{
          switch(commandType){
             case "list":
                output.append("All Reminders: \n");
-               rs = stmt.executeQuery("SELECT * FROM " + reminderTable + " ORDER BY reminder_time");
+               rs = stmt.executeQuery("SELECT * FROM " + this.reminderTable + " ORDER BY reminder_time");
 
                while(rs.next()){
                   output.append(rs.getTime(2)).append(" ").append(rs.getString(1)).append("\n");
@@ -48,7 +48,7 @@ public class ReminderCommand extends Command{
                        .parseCaseInsensitive().appendPattern("hh:mma").toFormatter(Locale.US);
                LocalTime reminderTime = LocalTime.parse(args[1], formatterTime1);
                LocalTime now = LocalTime.now();
-               st = conn.prepareStatement("INSERT INTO "+reminderTable+" VALUES (?,?)");
+               st = conn.prepareStatement("INSERT INTO "+this.reminderTable+" VALUES (?,?)");
                st.setString(1, reminderMsg);
                st.setTime(2, Time.valueOf(reminderTime));
                st.executeUpdate();
