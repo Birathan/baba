@@ -77,12 +77,11 @@ public class ReminderCommand extends Command{
                        .parseCaseInsensitive().appendPattern("hh:mma").toFormatter(Locale.US);
                LocalTime reminderTime = LocalTime.parse(args[1], formatterTime1);
                LocalTime now = LocalTime.now();
-               System.out.println("now "+ now + ": remindertime "+reminderTime);
                st = conn.prepareStatement("INSERT INTO "+this.reminderTable+" VALUES (?,?)");
                st.setString(1, reminderMsg);
                st.setTime(2, Time.valueOf(reminderTime));
                st.executeUpdate();
-               output.append("Set reminder successfully.");
+               output.append("Set reminder successfully!");
                channel.sendMessage("Reminder : " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
                channel.sendMessage(output.toString()).queue();
                break;
