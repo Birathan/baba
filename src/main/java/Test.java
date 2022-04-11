@@ -13,7 +13,7 @@ import java.util.Map;
 public class Test extends ListenerAdapter {
    public static Map<String, Command> commandMapping = new HashMap<>();
    public static void main(String[] args) throws LoginException {
-      System.out.println("discord bot v11");
+      System.out.println("discord bot v12");
       Dotenv dotenv = Dotenv.load();
       String token = dotenv.get("DISCORD_BOT_TOKEN");
       JDA jda = JDABuilder.createDefault(token).build();
@@ -24,6 +24,7 @@ public class Test extends ListenerAdapter {
       commandMapping.put("!todo", new TodoCommand());
       commandMapping.put("!reminder", new ReminderCommand());
       commandMapping.put("!reddit", new RedditSearchCommand());
+      commandMapping.put("!google", new GoogleSearch());
    }
 
    @Override

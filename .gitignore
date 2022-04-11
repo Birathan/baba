@@ -3,3 +3,4 @@
 target/
 out/
 postgres-data/*
+src/main/java/deleteme/
