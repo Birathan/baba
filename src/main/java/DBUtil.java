@@ -10,7 +10,6 @@ public class DBUtil {
       String connection_url = dotenv.get("PG_CONNECTION_URL");
       String user = dotenv.get("PG_USERNAME");
       String pass = dotenv.get("PG_PASSWORD");
-
       Connection con = null;
       try {
          Class.forName("org.postgresql.Driver");
