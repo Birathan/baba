@@ -67,7 +67,7 @@ public class TodoCommand extends Command{
 
                if (taskCount == 0){
                   System.out.println("no tasks");
-                  eb.setDescription("\nYou currently have no tasks, you can add tasks using **todo add [string]**");
+                  eb.setDescription("\nYou currently have no tasks, you can add tasks using **!todo add [string]**");
                   channel.sendMessageEmbeds(eb.build()).queue();
                   break;
                }

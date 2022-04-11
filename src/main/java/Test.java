@@ -13,6 +13,7 @@ import java.util.Map;
 public class Test extends ListenerAdapter {
    public static Map<String, Command> commandMapping = new HashMap<>();
    public static void main(String[] args) throws LoginException {
+      System.out.println("discord bot v11");
       Dotenv dotenv = Dotenv.load();
       String token = dotenv.get("DISCORD_BOT_TOKEN");
       JDA jda = JDABuilder.createDefault(token).build();
