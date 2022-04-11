@@ -1,10 +1,13 @@
 import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
+import java.awt.*;
 import java.sql.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -35,12 +38,29 @@ public class ReminderCommand extends Command{
          ResultSet rs;
          switch(commandType){
             case "list":
-               output.append("All Reminders: \n");
                rs = stmt.executeQuery("SELECT * FROM " + this.reminderTable + " ORDER BY reminder_time");
+               LocalTime rTime;
+               LocalTime n = LocalTime.now();
+               long remainingTime;
+               EmbedBuilder eb = new EmbedBuilder();
+               eb.setTitle("Reminder List :timer: :");
+               eb.setColor(new Color(0x10B981));
+               ArrayList<String> col1 = new ArrayList<>();
+               ArrayList<String> col2 = new ArrayList<>();
 
                while(rs.next()){
-                  output.append(rs.getTime(2)).append(" ").append(rs.getString(1)).append("\n");
+                  rTime = rs.getTime(2).toLocalTime();
+                  remainingTime = MINUTES.between(n, rTime);
+                  String time = remainingTime > (long)59 ? String.valueOf(rTime) : (remainingTime <= 0)? "passed ":remainingTime + " mins";
+                  col1.add("*"+time+"*");
+                  col2.add(rs.getString(1));
+                  output.append( "**").append(time).append("** ").append(rs.getString(1)).append("\n");
                }
+               eb.addField("Time",String.join("\n",col1),true);
+               eb.addField("Reminder",String.join("\n",col2),true);
+//               eb.setDescription(output);
+               channel.sendMessageEmbeds(eb.build()).queue();
+
                break;
             case "add":
                String reminderMsg = String.join(" ", Arrays.copyOfRange(args,2,args.length));
@@ -54,13 +74,15 @@ public class ReminderCommand extends Command{
                st.executeUpdate();
                output.append("Set reminder successfully.");
                channel.sendMessage("Reminder : " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
+               channel.sendMessage(output.toString()).queue();
                break;
 
             default:
                output = new StringBuilder(getDocumentation());
+               channel.sendMessage(output.toString()).queue();
          }
          DBUtil.closeConnection(conn);
-         channel.sendMessage(output.toString()).queue();
+
 
       } catch (SQLException e) {
          System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());

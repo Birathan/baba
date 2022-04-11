@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ public class TodoCommand extends Command{
    }
 
    public void updateMapping(){
+      idMapping = new HashMap<>();
       int id = 1;
       Connection conn = DBUtil.getConnection();
       try {
@@ -54,27 +56,48 @@ public class TodoCommand extends Command{
          switch(commandType){
             case "list":
                this.updateMapping();
+               rs = stmt.executeQuery("SELECT COUNT(*) AS taskCount FROM " + this.todoTable);
+               rs.next();
+
+               int taskCount = rs.getInt("taskCount");
+               eb = new EmbedBuilder();
+               eb.setTitle("Task List :ledger: :");
+               eb.setColor(new Color(0x10B981));
+
+
+               if (taskCount == 0){
+                  System.out.println("no tasks");
+                  eb.setDescription("\nYou currently have no tasks, you can add tasks using **todo add [string]**");
+                  channel.sendMessageEmbeds(eb.build()).queue();
+                  break;
+               }
+
                rs = stmt.executeQuery("SELECT * FROM "+this.todoTable +" ORDER BY id");
-               //
-               // System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
 
                int task_num = 0;
                int finished = 0;
                String[] tasks = new String[idMapping.size()];
                int id = 1;
+               ArrayList<String> col1 = new ArrayList<>();
+               ArrayList<String> col2 = new ArrayList<>();
+               ArrayList<String> col3 = new ArrayList<>();
+
                while(rs.next()){
                   boolean isComplete = rs.getBoolean(3);
+                  col1.add(String.valueOf(id));
+                  col2.add(isComplete? ":white_check_mark:":":x:");
+                  col3.add( rs.getString(2));
                   tasks[id-1] ="  "+(isComplete? ":white_check_mark:":":x:") +"   - " +id +" "+ rs.getString(2);
                   finished += 1;
                   task_num += isComplete ? 1: 0;
                   id += 1;
                }
-//               output ="Task List: `["+task_num+"/" +finished+ "] Completed ` \n" + output;
-               eb = new EmbedBuilder();
-               eb.setTitle("Task List :ledger: :");
-               eb.setColor(new Color(0x10B981));
-               eb.setDescription(String.join("\n", tasks));
-               eb.addField("Completed","["+task_num+"/" +finished+"]", true);
+               eb.addField("ID",String.join("\n", col1), true);
+               eb.addField("Task",String.join("\n", col3), true);
+               eb.addField("Done",String.join("\n", col2), true);
+
+//               eb.setDescription(String.join("\n", tasks));
+//               eb.addField("Completed","["+task_num+"/" +finished+"]", true);
                channel.sendMessageEmbeds(eb.build()).queue();
 
                break;
