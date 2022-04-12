@@ -10,21 +10,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Test extends ListenerAdapter {
+public class CommandHandler extends ListenerAdapter {
    public static Map<String, Command> commandMapping = new HashMap<>();
    public static void main(String[] args) throws LoginException {
       System.out.println("discord bot v12");
       Dotenv dotenv = Dotenv.load();
       String token = dotenv.get("DISCORD_BOT_TOKEN");
       JDA jda = JDABuilder.createDefault(token).build();
-      jda.addEventListener(new Test());
+      jda.addEventListener(new CommandHandler());
       commandMapping.put("!ping", new PingCommand());
       commandMapping.put("!chance", new ChanceCommand());
       commandMapping.put("!quote", new QuoteCommand());
       commandMapping.put("!todo", new TodoCommand());
       commandMapping.put("!reminder", new ReminderCommand());
       commandMapping.put("!reddit", new RedditSearchCommand());
-      commandMapping.put("!google", new GoogleSearch());
+      commandMapping.put("!google", new GoogleCommand());
    }
 
    @Override

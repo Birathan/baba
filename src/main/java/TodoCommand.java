@@ -16,7 +16,7 @@ public class TodoCommand extends Command{
               "> **!todo list ** - view all tasks\n" +
                       "> **!todo add [string] ** - add task\n" +
                       "> **!todo complete [integer] ** - mark task as complete\n" +
-                      "> **!todo remove [integer] ** - remove task from list\n");
+                      "> **!todo remove [integer] ** - remove task from list");
       Dotenv dotenv = Dotenv.load();
       this.todoTable = dotenv.get("TODO_TABLE");
       this.updateMapping();
@@ -41,7 +41,10 @@ public class TodoCommand extends Command{
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
-
+      if (args.length == 0){
+         channel.sendMessage(this.getErrorMessage()).queue();
+         return;
+      }
       String commandType = args[0];
 
 
@@ -92,6 +95,8 @@ public class TodoCommand extends Command{
                   task_num += isComplete ? 1: 0;
                   id += 1;
                }
+               eb.setDescription("Here is a list of all your tasks:");
+
                eb.addField("ID",String.join("\n", col1), true);
                eb.addField("Task",String.join("\n", col3), true);
                eb.addField("Done",String.join("\n", col2), true);
@@ -132,9 +137,8 @@ public class TodoCommand extends Command{
                channel.sendMessage(output).queue();
                break;
             default:
-               output = getDocumentation();
-               channel.sendMessage(output).queue();
-
+               channel.sendMessage(this.getErrorMessage()).queue();
+               break;
          }
       } catch (SQLException e) {
          e.printStackTrace();

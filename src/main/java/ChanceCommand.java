@@ -22,7 +22,7 @@ public class ChanceCommand extends Command {
    @Override
    public void execute(MessageChannel channel, String[] args) {
       if (args.length == 0){
-         channel.sendMessage(this.getDocumentation()).queue();
+         channel.sendMessage(this.getErrorMessage()).queue();
          return;
       }
       String chanceType = args[0];
@@ -47,7 +47,7 @@ public class ChanceCommand extends Command {
             channel.sendMessage("**"+this.eightball_responses.get(rand.nextInt(this.eightball_responses.size()))+"**").queue();
             break;
          default:
-            channel.sendMessage(this.getDocumentation()).queue();
+            channel.sendMessage(this.getErrorMessage()).queue();
             break;
       }
    }

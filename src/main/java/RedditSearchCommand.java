@@ -18,6 +18,10 @@ public class RedditSearchCommand extends Command {
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
+      if (args.length == 0){
+         channel.sendMessage(this.getErrorMessage()).queue();
+         return;
+      }
       Dotenv dotenv = Dotenv.load();
       String username = dotenv.get("REDDIT_USER");
       String pass = dotenv.get("REDDIT_PW");

@@ -11,11 +11,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.stream.Collectors;
 
-public class GoogleSearch extends Command{
+public class GoogleCommand extends Command{
    final String googleApiKey;
    final String googleCX;
 
-   public GoogleSearch(){
+   public GoogleCommand(){
       super("GOOGLE SEARCH","> **!google [string]** - give top 5 google results");
       Dotenv dotenv = Dotenv.load();
       this.googleApiKey = dotenv.get("GOOGLE_API_KEY");
@@ -24,6 +24,10 @@ public class GoogleSearch extends Command{
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
+      if (args.length == 0){
+         channel.sendMessage(this.getErrorMessage()).queue();
+         return;
+      }
       try {
          String query = URLEncoder.encode(String.join(" ",args), "UTF-8");
          URL url = new URL("https://www.googleapis.com/customsearch/v1?" +

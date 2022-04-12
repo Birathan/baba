@@ -18,7 +18,7 @@ public class ReminderCommand extends Command{
    final String reminderTable;
    public ReminderCommand(){
       super("REMINDER COMMAND",
-              "> **!reminder add [string]** - set a timed reminder\n" +
+              "> **!reminder add [HH:mm] [AM/PM] [string]** - set a timed reminder\n" +
                       "> **!reminder list** - view all reminders");
       Dotenv dotenv = Dotenv.load();
       this.reminderTable = dotenv.get("REMINDER_TABLE");
@@ -26,7 +26,10 @@ public class ReminderCommand extends Command{
 
    @Override
    public void execute(MessageChannel channel, String[] args) {
-
+      if (args.length == 0){
+         channel.sendMessage(this.getErrorMessage()).queue();
+         return;
+      }
       String commandType = args[0];
 //      System.out.format("connection url %s ,username %s, pass %s", connection_url, user, pass);
       Connection conn = DBUtil.getConnection();
@@ -65,6 +68,7 @@ public class ReminderCommand extends Command{
                   col2.add(rs.getString(1));
                   output.append( "**").append(time).append("** ").append(rs.getString(1)).append("\n");
                }
+               eb.setDescription("Here is a list of all past and upcoming reminders");
                eb.addField("Time",String.join("\n",col1),true);
                eb.addField("Reminder",String.join("\n",col2),true);
 //               eb.setDescription(output);
@@ -72,22 +76,22 @@ public class ReminderCommand extends Command{
 
                break;
             case "add":
-               String reminderMsg = String.join(" ", Arrays.copyOfRange(args,2,args.length));
+               String reminderMsg = String.join(" ", Arrays.copyOfRange(args,3,args.length));
                DateTimeFormatter formatterTime1 = new DateTimeFormatterBuilder()
-                       .parseCaseInsensitive().appendPattern("hh:mma").toFormatter(Locale.US);
-               LocalTime reminderTime = LocalTime.parse(args[1], formatterTime1);
+                       .parseCaseInsensitive().appendPattern("hh:mm a").toFormatter(Locale.US);
+               LocalTime reminderTime = LocalTime.parse(String.join(" ",Arrays.copyOfRange(args,1,3)), formatterTime1);
                LocalTime now = LocalTime.now();
                st = conn.prepareStatement("INSERT INTO "+this.reminderTable+" VALUES (?,?)");
                st.setString(1, reminderMsg);
                st.setTime(2, Time.valueOf(reminderTime));
                st.executeUpdate();
                output.append("Set reminder successfully!");
-               channel.sendMessage("Reminder : " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
+               channel.sendMessage("**Reminder :** " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
                channel.sendMessage(output.toString()).queue();
                break;
 
             default:
-               output = new StringBuilder(getDocumentation());
+               output = new StringBuilder(getErrorMessage());
                channel.sendMessage(output.toString()).queue();
          }
          DBUtil.closeConnection(conn);

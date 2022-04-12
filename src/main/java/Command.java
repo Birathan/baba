@@ -9,6 +9,10 @@ public abstract class Command {
       this.commandName = commandName;
    }
 
+   public String getErrorMessage(){
+      return "**BEEP... BOOP... cannot compute...** maybe this will help:\n\n"+ this.documentation;
+   }
+
    public String getDocumentation(){
       return this.documentation;
    }
