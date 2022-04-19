@@ -12,28 +12,33 @@ Update .env to include the API keys needed for the app to run. This includes Pos
 
 # Command list
 ## **TODO COMMAND**
-- !todo list  - view all tasks
-- !todo add [string]  - add task
-- !todo complete [integer]  - mark task as complete
+- **!todo** list  - view all tasks
+- **!todo** add [string]  - add task to list
+- **!todo** complete [integer]  - mark task as complete
+- !**todo** remove [integer]  - remove task from list
 
 
 ## **CHANCE COMMAND**
-- !chance coin  - simulate coin toss
-- !chance dice  - simulate dice roll
-- !chance 8ball [string] - simulate magic 8ball
-- !chance choose [choice1, choice2, etc...] - choose randomly between list of choices
+- **!chance** coin  - simulate coin toss
+- **!chance** dice  - simulate dice roll
+- **!chance** 8ball [string] - simulate magic 8ball
+- **!chance** choose [choice1, choice2, etc...] - choose randomly between list of choices
 
 ## **QUOTE COMMAND**
-- !quote - this will generate a random quote
+- **!quote** - this will generate a random quote
 
 ## **PING COMMAND**
-- !ping - check if the bot is up and running
+- **!ping** - check if the bot is up and running
 
 ## **REMINDER COMMAND**
-- !reminder - set a timed reminder
-
+- **!reminder** add [HH:mm] [AM/PM] [string] - set a timed reminder
+- **!reminder** list - view all reminders
+- 
 ## **REDDIT SEARCH**
-- !reddit [string] - Search top 5 posts from subreddit in the past week
+- **!reddit** [string] - Get top 5 posts from subreddit in the past week
+
+## **GOOGLE SEARCH**
+- **!google** [string] - Get top 5 google search results for given query
 
 # Roadmap / Future implementations
 - add more error handling
