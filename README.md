@@ -11,8 +11,8 @@ DISCORD_BOT_TOKEN =
 QUOTE_KEY =
 
 PG_CONNECTION_URL = jdbc:postgresql://postgres:5432/
-PG_USERNAME = 
-PG_PASSWORD = 
+PG_USERNAME = todo_user
+PG_PASSWORD = password
 TODO_TABLE = todo_list_test
 REMINDER_TABLE = reminders
 
