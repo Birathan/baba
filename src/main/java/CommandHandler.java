@@ -9,11 +9,12 @@ import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import Commands.*;
 
 public class CommandHandler extends ListenerAdapter {
    public static Map<String, Command> commandMapping = new HashMap<>();
    public static void main(String[] args) throws LoginException {
-      System.out.println("discord bot v12");
+      System.out.println("discord bot v13");
       Dotenv dotenv = Dotenv.load();
       String token = dotenv.get("DISCORD_BOT_TOKEN");
       JDA jda = JDABuilder.createDefault(token).build();
