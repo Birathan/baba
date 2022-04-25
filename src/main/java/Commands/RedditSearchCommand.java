@@ -14,7 +14,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class RedditSearchCommand extends Command {
    public RedditSearchCommand(){
-      super("REDDIT SEARCH","> **!reddit [string]** - get top 5 posts in the past week from given subreddit");
+      super("REDDIT SEARCH","> **!reddit [string]** - get top 5 reddit posts for the week from given subreddit");
    }
 
 
@@ -29,21 +29,17 @@ public class RedditSearchCommand extends Command {
       String pass = dotenv.get("REDDIT_PW");
       String clientID = dotenv.get("REDDIT_CLIENTID");
       String secret = dotenv.get("REDDIT_SECRET");
-      // Create our credentials
       if (username!=null && pass!=null && clientID!=null && secret!=null){
-         //https://mattbdean.gitbooks.io/jraw/content/pagination.html
          Credentials credentials = Credentials.script(username, pass,
                  clientID, secret);
          UserAgent userAgent = new UserAgent("bot", "baba", "v0.1", username);
-         // This is what really sends HTTP requests
          NetworkAdapter adapter = new OkHttpNetworkAdapter(userAgent);
 
-         // Authenticate and get a RedditClient instance
          RedditClient reddit = OAuthHelper.automatic(adapter, credentials);
          DefaultPaginator<Submission> paginator = reddit.subreddit(args[0]).posts()
-                 .limit(5) // 5 posts per page
-                 .timePeriod(TimePeriod.WEEK) // of all time
-                 .sorting(SubredditSort.TOP) // top posts
+                 .limit(5)
+                 .timePeriod(TimePeriod.WEEK)
+                 .sorting(SubredditSort.TOP)
                  .build();
          Listing<Submission> submissions = paginator.next();
          for (Submission s: submissions.getChildren()){

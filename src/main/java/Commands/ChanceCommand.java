@@ -18,7 +18,7 @@ public class ChanceCommand extends Command {
               "> **!chance coin**  - simulate coin toss\n" +
               "> **!chance dice**  - simulate dice roll\n" +
              "> **!chance 8ball [string]** - simulate magic 8ball given statement\n" +
-              "> **!chance choose [choice1, choice2, etc...]** - choose randomly between given list of choices");
+              "> **!chance choose [choice1, choice2, etc...]** - choose randomly between list of choices");
    }
 
    @Override

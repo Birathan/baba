@@ -18,7 +18,7 @@ public class GoogleCommand extends Command {
    final String googleCX;
 
    public GoogleCommand(){
-      super("GOOGLE SEARCH","> **!google [string]** - get top 5 google results for given query");
+      super("GOOGLE SEARCH","> **!google [string]** - get top 5 google search results for given query");
       Dotenv dotenv = Dotenv.load();
       this.googleApiKey = dotenv.get("GOOGLE_API_KEY");
       this.googleCX = dotenv.get("GOOGLE_CX");

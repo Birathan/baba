@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS todo_list_test(
+CREATE TABLE IF NOT EXISTS todolist(
     id SERIAL PRIMARY KEY,
     task VARCHAR(45) NOT NULL,
     completed BOOLEAN NOT NULL

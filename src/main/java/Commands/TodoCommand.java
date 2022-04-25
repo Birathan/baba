@@ -18,8 +18,8 @@ public class TodoCommand extends Command {
       super("TODO COMMAND",
               "> **!todo list ** - view task list (taskID, task, completion status)\n" +
                       "> **!todo add [string] ** - add task to list \n" +
-                      "> **!todo complete [integer] ** - mark task (taskID) as complete\n" +
-                      "> **!todo remove [integer] ** - remove task (taskID) from list");
+                      "> **!todo complete [integer] ** - mark task as complete\n" +
+                      "> **!todo remove [integer] ** - remove task from list");
       Dotenv dotenv = Dotenv.load();
       this.todoTable = dotenv.get("TODO_TABLE");
       this.updateMapping();
@@ -51,7 +51,6 @@ public class TodoCommand extends Command {
       String commandType = args[0];
 
 
-//         Class.forName("com.mysql.jdbc.Driver");
       Connection conn = DBUtil.getConnection();
       try {
          Statement stmt = conn.createStatement();
@@ -104,8 +103,6 @@ public class TodoCommand extends Command {
                eb.addField("Task",String.join("\n", col3), true);
                eb.addField("Done",String.join("\n", col2), true);
 
-//               eb.setDescription(String.join("\n", tasks));
-//               eb.addField("Completed","["+task_num+"/" +finished+"]", true);
                channel.sendMessageEmbeds(eb.build()).queue();
 
                break;
@@ -120,7 +117,6 @@ public class TodoCommand extends Command {
                eb.setDescription("Task added successfully!");
                eb.addField("Task",task, true);
                eb.addField("Completed","False", true);
-               eb.addBlankField(false);
                channel.sendMessageEmbeds(eb.build()).queue();
                break;
             case "complete":

@@ -34,7 +34,6 @@ public class ReminderCommand extends Command {
          return;
       }
       String commandType = args[0];
-//      System.out.format("connection url %s ,username %s, pass %s", connection_url, user, pass);
       Connection conn = DBUtil.getConnection();
 
       try {
@@ -52,7 +51,7 @@ public class ReminderCommand extends Command {
                eb.setTitle("Reminder List :timer: :");
                eb.setColor(new Color(0x10B981));
                if (reminderCount == 0){
-                  eb.setDescription("\nYou currently have no reminders, you can add tasks using **!reminder add [string]**");
+                  eb.setDescription("\nYou currently have no reminders, you can add tasks using **!reminder add [HH:mm] [AM/PM] [string]**");
                   channel.sendMessageEmbeds(eb.build()).queue();
                   break;
                }

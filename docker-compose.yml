@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./src/main/java/Database/schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
   web:
     build:
       context: .
@@ -10,14 +21,3 @@ services:
       - .env
     depends_on:
       - postgres
-  postgres:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: "todo_user"
-      POSTGRES_PASSWORD: "password"
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-      - ./src/main/java/Database/schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
