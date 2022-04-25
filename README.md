@@ -27,42 +27,39 @@ GOOGLE_CX =
 ```
 
 ## Running
-Simply run ```docker compose``` from the root directory!
+Simply run ```docker compose up``` from the root directory!
 
 # Command list
 ### MISC COMMMANDS
-**!ping** - check if the bot is up and running
-**!help** - get list of commands and how to use them
+- **!ping** - check if the bot is up and running
+- **!help** - get list of commands and how to use them
 
 ### TODO COMMAND
-**!todo list**  - view task list (taskID, task, completion status)
-**!todo add [string]**  - add task to list
-**!todo complete [integer]**  - mark task as complete
-**!todo remove [integer]**  - remove task from list
+- **!todo list**  - view task list (taskID, task, completion status)
+- **!todo add [string]**  - add task to list
+- **!todo complete [integer]**  - mark task as complete
+- **!todo remove [integer]**  - remove task from list
 
 ### CHANCE COMMAND
-**!chance coin**  - simulate coin toss
-**!chance dice**  - simulate dice roll
-**!chance 8ball [string]** - simulate magic 8ball given statement
-**!chance choose [choice1, choice2, etc...]** - choose randomly between list of choices
+- **!chance coin**  - simulate coin toss
+- **!chance dice**  - simulate dice roll
+- **!chance 8ball [string]** - simulate magic 8ball given statement
+- **!chance choose [choice1, choice2, etc...]** - choose randomly between list of choices
 
 ### QUOTE COMMAND
-**!quote** - get a random quote
-
-
+- **!quote** - get a random quote
 
 ### REMINDER COMMAND
-**!reminder add [HH:mm] [AM/PM] [string]** - set a timed reminder
-**!reminder list** - view all reminders
+- **!reminder add [HH:mm] [AM/PM] [string]** - set a timed reminder
+- **!reminder list** - view all reminders
 
 ### REDDIT SEARCH
-**!reddit [string]** - get top 5 reddit posts for the week from given subreddit
+- **!reddit [string]** - get top 5 reddit posts for the week from given subreddit
 
 ### GOOGLE SEARCH
-**!google [string]** - get top 5 google search results for given query
+- **!google [string]** - get top 5 google search results for given query
 
 # Roadmap / Future implementations
-- add more error handling
-- make class for db connection
-- add algo command
-- add bot/server invites
+- Add more error handling
+- Add algo command and bot/server invites
+- Should think about abstracting out DB logic to helper functions or separate classes
