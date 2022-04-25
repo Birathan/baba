@@ -73,7 +73,6 @@ public class ReminderCommand extends Command {
                eb.setDescription("Here is a list of all past and upcoming reminders");
                eb.addField("Time",String.join("\n",col1),true);
                eb.addField("Reminder",String.join("\n",col2),true);
-//               eb.setDescription(output);
                channel.sendMessageEmbeds(eb.build()).queue();
 
                break;
@@ -87,7 +86,7 @@ public class ReminderCommand extends Command {
                st.setString(1, reminderMsg);
                st.setTime(2, Time.valueOf(reminderTime));
                st.executeUpdate();
-               output.append("Set reminder successfully!");
+               output.append("**Set reminder successfully!**");
                channel.sendMessage("**Reminder :** " + reminderMsg).queueAfter(SECONDS.between(now, reminderTime), TimeUnit.SECONDS);
                channel.sendMessage(output.toString()).queue();
                break;

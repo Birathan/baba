@@ -35,7 +35,7 @@ public class CommandHandler extends ListenerAdapter {
       MessageChannel channel = msg.getChannel();
       String query = msg.getContentRaw().trim();
 
-      if (query.startsWith("b!")) {
+      if (query.startsWith("!")) {
          String[] args = query.split("\\s+");
          String commandName = args[0];
          if (commandName.equals("!help")){

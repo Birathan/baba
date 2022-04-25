@@ -102,7 +102,6 @@ public class TodoCommand extends Command {
                eb.addField("ID",String.join("\n", col1), true);
                eb.addField("Task",String.join("\n", col3), true);
                eb.addField("Done",String.join("\n", col2), true);
-
                channel.sendMessageEmbeds(eb.build()).queue();
 
                break;
@@ -111,19 +110,13 @@ public class TodoCommand extends Command {
                st = conn.prepareStatement("INSERT INTO "+this.todoTable +"(task, completed) VALUES(?, FALSE)");
                st.setString(1, task);
                st.executeUpdate();
-               eb = new EmbedBuilder();
-               eb.setTitle("Task");
-               eb.setColor(new Color(0x10B981));
-               eb.setDescription("Task added successfully!");
-               eb.addField("Task",task, true);
-               eb.addField("Completed","False", true);
-               channel.sendMessageEmbeds(eb.build()).queue();
+               channel.sendMessage("**Task added successfully!**").queue();
                break;
             case "complete":
                st = conn.prepareStatement("UPDATE "+this.todoTable +" SET completed=TRUE WHERE id=?");
                st.setInt(1,this.idMapping.get(Integer.parseInt(args[1])));
                st.executeUpdate();
-               output += "Task "+args[1]+" successfully marked as complete!";
+               output += "**Task "+args[1]+" successfully marked as complete!**";
                channel.sendMessage(output).queue();
 
                break;
@@ -132,7 +125,7 @@ public class TodoCommand extends Command {
                st = conn.prepareStatement("delete from "+this.todoTable +" WHERE id=?");
                st.setInt(1, this.idMapping.get(Integer.parseInt(args[1])));
                st.execute();
-               output = "Task removed successfully!";
+               output = "**Task removed successfully!**";
                channel.sendMessage(output).queue();
                break;
             default:
