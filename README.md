@@ -2,9 +2,11 @@
 
 Baba is a discord bot that acts as your personal assistant with ~15 commands. You can use baba to set reminders, browse reddit, maintain a todo list, get random quotes for the day and much more!
 
+![discordbot](https://user-images.githubusercontent.com/34045539/165233129-dadc91bc-b81c-4cba-a6a3-847381351857.gif)
+
 # Setup
 ## Update environment variables
-Update .env to include the API keys needed for the app to run.
+Update .env to include the API keys and credentials needed for the app to run.
 ```
 DISCORD_BOT_TOKEN =
 
@@ -27,7 +29,7 @@ GOOGLE_CX =
 ```
 
 ## Running
-Simply run ```docker compose up``` from the root directory!
+Simply run ```docker compose -f docker-compose.yml up``` from the root directory!
 
 # Command list
 ### MISC COMMMANDS
