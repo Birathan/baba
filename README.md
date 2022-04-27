@@ -1,6 +1,6 @@
 # Baba <img src="https://user-images.githubusercontent.com/34045539/161357485-cdb201e1-6d85-4b69-8700-33189a1ccea0.gif" width="30px" height="30px"/>
 
-Baba is a discord bot that acts as your personal assistant with ~15 commands. You can use baba to set reminders, browse reddit, maintain a todo list, get random quotes for the day and much more!
+Baba is a discord bot that acts as your personal assistant with ~15 commands. You can use baba to set reminders, browse reddit/google, maintain a todo list, get random quotes for the day and much more!
 
 ![discordbot](https://user-images.githubusercontent.com/34045539/165233129-dadc91bc-b81c-4cba-a6a3-847381351857.gif)
 
